@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi Tekanan Hidrostatik</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        header {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        main {
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-left: 5px solid #007bff;
+            border-radius: 5px;
+        }
+        .result h3 {
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+        .result p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Simulasi Tekanan Hidrostatik</h1>
+        <p>Hitung tekanan hidrostatik berdasarkan kedalaman sumur</p>
+    </header>
+    <main>
+        <form id="pressure-form">
+            <div class="form-group">
+                <label for="depth">Kedalaman Sumur (m):</label>
+                <input type="number" id="depth" placeholder="Masukkan kedalaman sumur" required>
+            </div>
+            <div class="form-group">
+                <label for="density">Massa Jenis Fluida (kg/m³):</label>
+                <input type="number" id="density" placeholder="Masukkan massa jenis fluida" required>
+            </div>
+            <div class="form-group">
+                <label for="gravity">Percepatan Gravitasi (m/s²):</label>
+                <input type="number" id="gravity" value="9.8" required>
+            </div>
+            <button type="button" class="button" onclick="calculatePressure()">Hitung Tekanan</button>
+        </form>
+        <div id="result" class="result" style="display: none;">
+            <h3>Hasil Perhitungan</h3>
+            <p id="depth-result"></p>
+            <p id="density-result"></p>
+            <p id="pressure-result"></p>
+        </div>
+    </main>
+    <script>
+        function calculatePressure() {
+            const depth = parseFloat(document.getElementById('depth').value);
+            const density = parseFloat(document.getElementById('density').value);
+            const gravity = parseFloat(document.getElementById('gravity').value);
+
+            if (isNaN(depth) || isNaN(density) || isNaN(gravity) || depth <= 0 || density <= 0 || gravity <= 0) {
+                alert('Harap masukkan nilai yang valid!');
+                return;
+            }
+
+            const pressure = density * gravity * depth; // P = ρgh
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+
+            document.getElementById('depth-result').textContent = `Kedalaman Sumur: ${depth.toFixed(2)} m`;
+            document.getElementById('density-result').textContent = `Massa Jenis Fluida: ${density.toFixed(2)} kg/m³`;
+            document.getElementById('pressure-result').textContent = `Tekanan Hidrostatik: ${pressure.toFixed(2)} Pa`;
+        }
+    </script>
+</body>
+</html>
